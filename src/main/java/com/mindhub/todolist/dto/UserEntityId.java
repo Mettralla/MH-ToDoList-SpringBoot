@@ -1,4 +1,8 @@
 package com.mindhub.todolist.dto;
 
-public record UserEntityId(Long id) {
-}
+import jakarta.validation.constraints.NotNull;
+
+public record UserEntityId(
+        @NotNull(message = "User ID cannot be null")
+        Long id
+) {}

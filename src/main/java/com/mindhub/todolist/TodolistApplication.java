@@ -1,14 +1,17 @@
 package com.mindhub.todolist;
 
+import com.mindhub.todolist.models.RoleType;
 import com.mindhub.todolist.models.Task;
 import com.mindhub.todolist.models.TaskStatus;
 import com.mindhub.todolist.models.UserEntity;
 import com.mindhub.todolist.repositories.TaskRepository;
 import com.mindhub.todolist.repositories.UserEntityRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -19,12 +22,16 @@ public class TodolistApplication {
 		SpringApplication.run(TodolistApplication.class, args);
 	}
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+
 	@Bean
 	public CommandLineRunner initData(UserEntityRepository userEntityRepository, TaskRepository taskRepository) {
 		return args -> {
 			UserEntity testUser = new UserEntity(
 					"daniTejerina",
-					"strongpass",
+					passwordEncoder.encode("strongpass"),
 					"dani@gmail.com"
 			);
 
@@ -40,9 +47,11 @@ public class TodolistApplication {
 
 			UserEntity testUser2 = new UserEntity(
 					"janeSmith",
-					"securepassword",
+					passwordEncoder.encode("securepassword"),
 					"jane.smith@example.com"
 			);
+
+			testUser2.setRole(RoleType.ADMIN);
 
 			userEntityRepository.save(testUser2);
 

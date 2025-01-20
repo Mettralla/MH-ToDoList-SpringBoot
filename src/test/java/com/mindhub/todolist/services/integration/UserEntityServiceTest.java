@@ -8,6 +8,7 @@ import com.mindhub.todolist.models.UserEntity;
 import com.mindhub.todolist.repositories.UserEntityRepository;
 import com.mindhub.todolist.services.impl.UserEntityServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class UserEntityServiceTest {
     }
 
     @Test
+    @DisplayName("Should be able to create new admin successfully")
     void testShouldCreateNewAdminSuccessfully() throws EmailAlreadyExistsException {
         NewUserEntity newUserTest = new NewUserEntity("newUser", "password123", "newuser@example.com");
 
@@ -57,6 +59,7 @@ public class UserEntityServiceTest {
     }
 
     @Test
+    @DisplayName("Should fail if the email already exists in DB")
     void testCreateNewAdminShouldThrowsEmailAlreadyExistsExceptionWhenEmailExists() {
         NewUserEntity duplicatedUser = new NewUserEntity("duplicated", "password123", "test@example.com");
 
@@ -66,6 +69,7 @@ public class UserEntityServiceTest {
     }
 
     @Test
+    @DisplayName("Should retrieve a user by id")
     void testGetUserByIdShouldReturnsUserSuccessfully() throws EmailAlreadyExistsException {
         NewUserEntity newUserTest = new NewUserEntity("newUser", "password123", "newuser@example.com");
         UserEntityDTO createdUser = userEntityService.createNewAdmin(newUserTest, authentication);

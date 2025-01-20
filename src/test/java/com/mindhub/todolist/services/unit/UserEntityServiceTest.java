@@ -5,6 +5,7 @@ import com.mindhub.todolist.models.UserEntity;
 import com.mindhub.todolist.repositories.UserEntityRepository;
 import com.mindhub.todolist.services.impl.UserEntityServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -37,6 +38,7 @@ public class UserEntityServiceTest {
     }
 
     @Test
+    @DisplayName("Should get user by id successfully")
     void testGetUserEntityByIdShouldBeSuccess() throws UserEntityNotFoundException {
         when(userEntityRepository.findById(1L)).thenReturn(java.util.Optional.of(mockUser));
 
@@ -51,6 +53,7 @@ public class UserEntityServiceTest {
     }
 
     @Test
+    @DisplayName("Should fail to get user")
     void testGetUserEntityByIdShouldGetUserNotFound() {
         when(userEntityRepository.findById(1L)).thenReturn(java.util.Optional.empty());
 

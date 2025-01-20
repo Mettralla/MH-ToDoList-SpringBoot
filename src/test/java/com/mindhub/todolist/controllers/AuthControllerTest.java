@@ -8,6 +8,7 @@ import com.mindhub.todolist.exceptions.EmailAlreadyExistsException;
 import com.mindhub.todolist.models.UserEntity;
 import com.mindhub.todolist.repositories.UserEntityRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,8 @@ public class AuthControllerTest {
     }
 
     @Test
-    void testRegisterUser() throws Exception {
+    @DisplayName("Should register new user successfully")
+    void testShouldRegisterUser() throws Exception {
         NewUserEntity newUserEntity = new NewUserEntity("newUser", "password123", "newuser@example.com");
 
         mockMvc.perform(post("/api/auth/register")
@@ -76,7 +78,8 @@ public class AuthControllerTest {
     }
 
     @Test
-    void testRegisterUser_EmailAlreadyExists() throws Exception {
+    @DisplayName("If the email exist in DB should fail")
+    void testRegisterUserWithEmailAlreadyExistsShouldFail() throws Exception {
         userEntityRepository.save(new UserEntity("existingUser", "password123", "existinguser@example.com"));
 
         NewUserEntity newUserEntity = new NewUserEntity("existingUser", "password123", "existinguser@example.com");
@@ -89,6 +92,7 @@ public class AuthControllerTest {
     }
 
     @Test
+    @DisplayName("Should authenticate successfully")
     @WithMockUser(username = "testuser@email.com", authorities = "USER")
     void testShouldAuthenticateUserSuccessfully() throws Exception {
         mockMvc.perform(post("/api/auth/login")
@@ -100,6 +104,7 @@ public class AuthControllerTest {
 
 
     @Test
+    @DisplayName("Authentication should fail if credentials are incorrect")
     @WithMockUser(username = "testuser@email.com", authorities = "USER")
     void testShouldFailAuthentication() throws Exception {
         loginUser = new LoginUser("testuser@email.com", "password1");

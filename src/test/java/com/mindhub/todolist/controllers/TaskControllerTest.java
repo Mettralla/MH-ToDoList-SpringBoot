@@ -12,6 +12,7 @@ import com.mindhub.todolist.repositories.UserEntityRepository;
 import com.mindhub.todolist.services.TaskService;
 import com.mindhub.todolist.services.UserEntityService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -25,6 +26,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.core.userdetails.User;
@@ -90,7 +92,7 @@ public class TaskControllerTest {
                 new User(
                         "testuser@email.com",
                         "password123",
-                        List.of(new org.springframework.security.core.authority.SimpleGrantedAuthority("USER"))
+                        List.of(new SimpleGrantedAuthority("USER"))
                 );
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -103,7 +105,8 @@ public class TaskControllerTest {
     }
 
     @Test
-    void testCreateTask() throws Exception {
+    @DisplayName("Should create a new task")
+    void testShouldCreateNewTask() throws Exception {
         UserEntityId userId = new UserEntityId(1L);
         String title = "Test Task";
         String description = "This is a test task";
@@ -122,8 +125,9 @@ public class TaskControllerTest {
     }
 
     @Test
+    @DisplayName("Should get task by id")
     @WithMockUser(username = "testuser@email.com", authorities = "ADMIN")
-    void testGetTask() throws Exception {
+    void testShouldGetATaskById() throws Exception {
         Task task = new Task("Test Task", "This is a test task", TaskStatus.PENDING);
         UserEntity owner = new UserEntity("getTestUser", "password12345", "gettestuser@email.com");
         userEntityRepository.save(owner);

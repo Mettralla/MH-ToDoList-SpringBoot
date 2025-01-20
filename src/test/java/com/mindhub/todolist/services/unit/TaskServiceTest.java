@@ -13,6 +13,7 @@ import com.mindhub.todolist.services.UserEntityService;
 import com.mindhub.todolist.services.impl.TaskServiceImpl;
 import com.mindhub.todolist.services.impl.UserEntityServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
@@ -49,6 +50,7 @@ public class TaskServiceTest {
     }
 
     @Test
+    @DisplayName("Should be able to create new task")
     void createNewTaskShouldCallsRepositoryAndReturnsExpectedResult()
             throws UserEntityNotFoundException,NoSuchFieldException, IllegalAccessException {
 

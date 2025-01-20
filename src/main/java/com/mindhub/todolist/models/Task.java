@@ -28,7 +28,6 @@ public class Task {
     private UserEntity userEntity;
 
     public Task(String title, String description, TaskStatus status) {
-
         this.title = title;
         this.description = description;
         this.status = status;
@@ -73,4 +72,14 @@ public class Task {
         this.userEntity = userEntity;
     }
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "Id=" + Id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                ", userEntity=" + userEntity +
+                '}';
+    }
 }

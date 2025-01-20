@@ -67,5 +67,4 @@ public class AuthController {
         return new UserEntityDTO(createdUserEntity);
     }
 
-
 }

@@ -34,4 +34,14 @@ public class TaskDTO {
     public TaskStatus getStatus() {
         return status;
     }
+
+    @Override
+    public String toString() {
+        return "TaskDTO{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

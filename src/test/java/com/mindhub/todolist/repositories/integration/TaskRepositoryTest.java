@@ -1,5 +1,6 @@
 package com.mindhub.todolist.repositories.integration;
 
+import com.mindhub.todolist.models.RoleType;
 import com.mindhub.todolist.models.Task;
 import com.mindhub.todolist.models.TaskStatus;
 import com.mindhub.todolist.models.UserEntity;
@@ -39,11 +40,15 @@ public class TaskRepositoryTest {
                 "test@example.com"
         );
 
+        user1.setRole(RoleType.USER);
+
         UserEntity user2 = new UserEntity(
                 "preUpdateTestUser",
                 passwordEncoder.encode("12345"),
                 "testForUpdate@example.com"
         );
+
+        user2.setRole(RoleType.USER);
 
         userEntityRepository.save(user1);
         userEntityRepository.save(user2);
